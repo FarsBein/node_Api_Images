@@ -1,5 +1,8 @@
 const ListingModel = require('../models/listing');
 
+var CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/farsbein01/upload'
+var CLOUDINARY_UPLOAD_PRESET = 'nr78lqcf'
+
 module.exports = {
 
   createListing(req, res, next) {
@@ -77,8 +80,32 @@ module.exports = {
   },
 
   uploads(req,res,next){
-    cloudinary.v2.uploader.upload(image, 
-    function(error, result) {console.log(result, error)});
+    ListingModel.addEventListener('change', function(event){
+      var file = event.target.files[0];
+      console.log(file)
+      var formData = new FormData();
+      formData.append('file', file);
+      formData.append('upload_preset',CLOUDINARY_UPLOAD_PRESET);
+      axios({
+          url: CLOUDINARY_URL,
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          data: formData
+      }).then(function(res){
+          console.log(res);
+          res.json(res.data.secure_url);
+      }).catch(function(err){
+          console.log(err);
+      });
+  });
+  
   }
+
+  // uploads(req,res,next){
+  //   cloudinary.v2.uploader.upload(image, 
+  //   function(error, result) {console.log(result, error)});
+  // }
 
 }

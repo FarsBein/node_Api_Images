@@ -12,7 +12,7 @@ var path = require('path');
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 // app.use('/api/v1', router);
 
-//
+//for preview 
 app.engine('html', mustacheExpress());
 app.set('view engine', 'mustache');
 app.use('/public', express.static('public'));
