@@ -79,29 +79,32 @@ module.exports = {
     });
   },
 
-  uploads(req,res,next){
-    ListingModel.addEventListener('change', function(event){
-      var file = event.target.files[0];
-      console.log(file)
-      var formData = new FormData();
-      formData.append('file', file);
-      formData.append('upload_preset',CLOUDINARY_UPLOAD_PRESET);
-      axios({
-          url: CLOUDINARY_URL,
-          method: 'POST',
-          headers: {
-              'Content-Type': 'application/x-www-form-urlencoded'
-          },
-          data: formData
-      }).then(function(res){
-          console.log(res);
-          res.json(res.data.secure_url);
-      }).catch(function(err){
-          console.log(err);
-      });
-  });
-  
+  uploads(req, res, next) {
+    ListingModel.find({ id: req.params.id }, (err, image) => {
+      if (err) {
+        next(err);
+      } else {
+        image.archived = true;
+        image.save();
+      }
+    });
   }
+
+  // uploads(req,res,next){
+  //   const file = req.file.photo;
+  //   console.log(file);
+  //   CLOUDINARY_UPLOAD_PRESET.uploader.upload(file.tempFilePath, function(err, result){
+  //     console.log(result, error);
+  //   });
+    // file.mv('./uploads/' + file.name, function (err,result){
+    //   if (err)
+    //     throw err;
+    //   res.send({
+    //     success:true,
+    //     message: "File uploaded"
+    //   })
+    // })
+  // }
 
   // uploads(req,res,next){
   //   cloudinary.v2.uploader.upload(image, 

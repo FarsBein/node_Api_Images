@@ -11,7 +11,7 @@ const ListingSchema = new Schema({
     distance: Number,
     date: Date,
     archived: Boolean,
-    image: ({type: Buffer, contentType: String})
+    image: ({type: Buffer, id: String})
 });
 
 module.exports = mongoose.model('Listing', ListingSchema);

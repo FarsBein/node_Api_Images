@@ -12,12 +12,21 @@ var path = require('path');
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 // app.use('/api/v1', router);
 
+
 //for preview 
 app.engine('html', mustacheExpress());
 app.set('view engine', 'mustache');
 app.use('/public', express.static('public'));
 app.get('/upload', function(req, res) {
     res.render('index.html');
+  });
+//
+var cloudinary = require('cloudinary').v2
+
+cloudinary.config({ 
+    cloud_name: 'farsbein01', 
+    api_key: '787672798616852', 
+    api_secret: 'jpgWZXp39uUMU0aqdbJ2sX13Spg' 
   });
 //
 const port = process.env.PORT || 8000;
