@@ -10,7 +10,8 @@ const ListingSchema = new Schema({
     rating: Number,
     distance: Number,
     date: Date,
-    archived: Boolean
+    archived: Boolean,
+    image: ({type: Buffer, contentType: String})
 });
 
 module.exports = mongoose.model('Listing', ListingSchema);

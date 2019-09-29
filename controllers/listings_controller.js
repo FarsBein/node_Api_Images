@@ -74,6 +74,11 @@ module.exports = {
         listing.save();
       }
     });
+  },
+
+  uploads(req,res,next){
+    cloudinary.v2.uploader.upload(image, 
+    function(error, result) {console.log(result, error)});
   }
 
 }

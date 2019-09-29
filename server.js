@@ -6,12 +6,21 @@ const mongoose = require('mongoose');
 const express = require('express');
 const cors = require('cors');
 const app = express();
-
+var mustacheExpress = require('mustache-express');
+var path = require('path');
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 // app.use('/api/v1', router);
 
-const port = process.env.PORT || 80;
+//
+app.engine('html', mustacheExpress());
+app.set('view engine', 'mustache');
+app.use('/public', express.static('public'));
+app.get('/upload', function(req, res) {
+    res.render('index.html');
+  });
+//
+const port = process.env.PORT || 8000;
 mongoose.connect('mongodb+srv://dev:TDUa31Zf4KXHnPfM@cluster0-katnu.mongodb.net/t6-test?retryWrites=true&w=majority', { useNewUrlParser: true });
 
 app.use(cors());
