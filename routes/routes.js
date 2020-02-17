@@ -22,6 +22,4 @@ module.exports = function (app) {
      .put('/listing', ListingCtrl.updateListing)
      .get('/listing/:id', ListingCtrl.getListingById)
      .delete('/listing/:id', ListingCtrl.archiveListing)
-
-     .post('/uploads', ListingCtrl.uploads)
 };

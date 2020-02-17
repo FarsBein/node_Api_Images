@@ -1,7 +1,5 @@
 const ListingModel = require('../models/listing');
 
-var CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/farsbein01/upload'
-var CLOUDINARY_UPLOAD_PRESET = 'nr78lqcf'
 
 module.exports = {
 
@@ -39,7 +37,8 @@ module.exports = {
           iconUrl: listing.iconUrl,
           username: listing.username,
           rating: listing.rating,
-          distance: listing.distance
+          distance: listing.distance,
+          image: listing.image
         }
 
         res.json(listing)
@@ -60,7 +59,8 @@ module.exports = {
           iconUrl: listing.iconUrl,
           username: listing.username,
           rating: listing.rating,
-          distance: listing.distance
+          distance: listing.distance,
+          image: listing.image
          }))
 
         res.json(listings);
@@ -78,17 +78,6 @@ module.exports = {
       }
     });
   },
-
-  uploads(req, res, next) {
-    ListingModel.find({ id: req.params.id }, (err, image) => {
-      if (err) {
-        next(err);
-      } else {
-        image.archived = true;
-        image.save();
-      }
-    });
-  }
 
   // uploads(req,res,next){
   //   const file = req.file.photo;
